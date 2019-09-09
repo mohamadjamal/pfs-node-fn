@@ -44,7 +44,7 @@ kubectl config current-context
 List all pods
 
 ```sh
-okubectl get pods --all-namespaces
+kubectl get pods --all-namespaces
 ```
 Install PFS to the containers
 
@@ -65,7 +65,7 @@ gcloud projects add-iam-policy-binding pfs-demo-project --member serviceAccount:
 Create a private authentication key for the push service account and store it in a local file
 
 ```sh
-gcloud iam service-accounts keys create  --iam-account "pfs-demo-image@pfs-demo-project.iam.gserviceaccount.com" C:\Work\tao-workspace\gcr-storage-admin.json
+gcloud iam service-accounts keys create  --iam-account "pfs-demo-image@pfs-demo-project-252416.iam.gserviceaccount.com" C:\Work\tao-workspace\gcr-storage-admin.json
 ```
 Use the pfs CLI to initialize PFS resources in a Kubernetes namespace.
 
@@ -79,9 +79,9 @@ Create a simple java function
 
 ```sh
 pfs function create greeting --git-repo https://github.com/mohamadjamal/pfs-simple-java-fn.git --verbose
-pfs function create greeting --local-path C:\Work\tao-workspace\pfs-simple-java-fn --handler com.cognizant.tao.cloud.Greeting --verbose
+pfs function create greeting --local-path C:\Work\tao-workspace\pfs-simple-java-fn --handler com.demo.tao.cloud.Greeting --verbose
 pfs function update greeting -–verbose
-pfs function create greeting --local-path .  --handler com.cognizant.tao.cloud.Greeting --verbose
+pfs function create greeting --local-path .  --handler com.demo.tao.cloud.Greeting --verbose
 ```
 
 Invoking the funciton
@@ -108,8 +108,18 @@ pfs function create hello-async -–git-repo  https://github.com/mohamadjamal/pfs-
 pfs service invoke hello-async --text -- -d "mohamad jamal aj"
 ```
 
+Eventing
+
+```sh
+pfs channel create my-input-channel
+pfs subscription create --channel my-input-channel --subscriber square
+
+```
+
+
 #### Todos
 
  - Wire channels for the demo
+ - PubSub invocation
  - Update the ppt
  
